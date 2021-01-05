@@ -1,0 +1,74 @@
+package com.github.jonelo.jAdapterForNativeTTS.engines.windows;
+
+import com.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
+import com.github.jonelo.jAdapterForNativeTTS.engines.Voice;
+import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import com.github.jonelo.jAdapterForNativeTTS.util.parsers.CSVParser;
+
+import java.util.List;
+
+public class SpeechEngineWindows extends SpeechEngineAbstract {
+
+    private final static String
+            QUOTE = "\"",
+            CODE_TOKEN_TTS_NAME = "##TTS_NAME##",
+            CODE_TOKEN_TEXT = "##TEXT##",
+            POWER_SHELL_CODE_SAY =
+                    String.join("",
+                            "Add-Type -AssemblyName System.Speech;",
+                            "$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer;",
+                            "$speak.SelectVoice('", CODE_TOKEN_TTS_NAME, "');",
+                            "$speak.Speak('", CODE_TOKEN_TEXT, "');"),
+
+    POWER_SHELL_CODE_SUPPORTED_VOICES =
+            String.join("",
+                    "Add-Type -AssemblyName System.Speech;",
+                    "$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer;",
+                    "$speak.GetInstalledVoices() | ",
+                    "Select-Object -ExpandProperty VoiceInfo | ",
+                    "Select-Object -Property Name, Culture, Gender, Age, Description | ",
+                    "ConvertTo-Csv -NoTypeInformation | ",
+                    "Select-Object -Skip 1;");
+
+
+    public String getSayExecutable() {
+        return "PowerShell";
+    }
+
+    public String[] getSayOptionsToSayText(String text) {
+        String escapedText = text.replaceAll("'", "''''");
+        String code = POWER_SHELL_CODE_SAY
+                .replaceAll(CODE_TOKEN_TTS_NAME, voice)
+                .replaceAll(CODE_TOKEN_TEXT, escapedText);
+        //System.out.println(code);
+
+        return new String[]{"-Command", String.join("", QUOTE, code, QUOTE)};
+    }
+
+
+    public String[] getSayOptionsToGetSupportedVoices() {
+        return new String[]{"-Command", String.join("", QUOTE, POWER_SHELL_CODE_SUPPORTED_VOICES, QUOTE)};
+    }
+
+    private String trimQuotes(String line) {
+        return line.replaceAll("^\"|\"$", "");
+    }
+
+    public Voice parse(String csvLine) throws ParseException {
+        String[] tokens = csvLine.split(",");
+
+        //List<String> tokens = CSVParser.parseLine(csvLine);
+        if (tokens.length != 5) {
+            throw new ParseException("This is not a valid csv line: " + csvLine);
+        }
+
+        Voice voice = new Voice();
+        voice.setName(trimQuotes(tokens[0]));
+        voice.setCulture(trimQuotes(tokens[1]));
+        voice.setGender(trimQuotes(tokens[2]));
+        voice.setAge(trimQuotes(tokens[3]));
+        voice.setDescription(String.format("%s (%s, %s)", voice.getName(), voice.getCulture().replace('-','_'), voice.getGender()));
+        return voice;
+    }
+
+}
