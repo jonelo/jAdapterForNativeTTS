@@ -3,7 +3,7 @@ jAdapterForNativeTTS
 
 What the project is for
 -----------------------
-It is a simple Java library that allows you to call the native Text To Speach features provided by your operating system.
+It is a simple Java library that allows you to call the native Text To Speech features provided by your operating system.
 Microsoft Windows, GNU/Linux, and macOS are supported.
 
 
