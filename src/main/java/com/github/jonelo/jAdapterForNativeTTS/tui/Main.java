@@ -17,11 +17,11 @@ public class Main {
      * Prints the usage to the standard output.
      */
     public static void usage() {
-        System.out.println("java -jar JTextToSpeech.jar [word]...");
+        System.out.println("java -jar jAdapterForNativeTTS-*.jar [word]...");
     }
 
 
-    public void printVoices(List<Voice> voices) {
+    private void printVoices(List<Voice> voices) {
         // print all voices
         int id = 0;
         for (Voice voice : voices) {
@@ -30,7 +30,7 @@ public class Main {
     }
 
 
-    public int selectVoice(List<Voice> voices) {
+    private int selectVoice(List<Voice> voices) {
         int id;
         // select a voice
         do {
@@ -52,9 +52,15 @@ public class Main {
     }
 
     /**
-     * Let the user select a voice from a speech engine
+     * Let the user select a voice from a speech engine.
+     *
+     * @param engine an instance of a SpeechEngine
+     * @return the name of the selected voice
+     * @throws IOException in case of an I/O error
+     * @throws InterruptedException in case of an interrupt
+     * @throws ParseException in case of an parse error
      */
-    public String selectVoice(SpeechEngine engine) throws InterruptedException, ParseException, IOException {
+    private String selectVoice(SpeechEngine engine) throws InterruptedException, ParseException, IOException {
         List<Voice> voices = engine.getAvailableVoices();
         printVoices(voices);
         int id = selectVoice(voices);
@@ -73,7 +79,7 @@ public class Main {
         return text.toString();
     }
 
-    public void sayText(String text) {
+    private void sayText(String text) {
         try {
             SpeechEngine speechEngine = SpeechEngineNative.getInstance();
             String name = selectVoice(speechEngine);

@@ -17,11 +17,16 @@ public class SpeechEngineNative {
     public static SpeechEngine getInstance() throws NotSupportedOperatingSystemException {
         if (engine == null) {
             String osName = System.getProperty("os.name");
-            String osNameForComparison = osName.toLowerCase(Locale.US);
+            String osNameForComparison = osName.replaceAll("\\s", "").toLowerCase(Locale.US);
             if (osNameForComparison.startsWith("windows")) {
                 engine = new SpeechEngineWindows();
             } else
-            if (osNameForComparison.startsWith("mac os x")) {
+            // In Big Sur (11.1) the tool called sw_vers returns "macOS" as the ProductName, but
+            // the name returned by the OpenJDK 11 is still "Mac OS X" as it was with any Mac OS X 10.x
+            // Nonetheless we compare against the prefix "macos" (after blanks have been removed),
+            // because that comparison string is much safer for future JDK releases, and it keeps
+            // compatibility with older Mac OS X versions.
+            if (osNameForComparison.startsWith("macos")) {
                 engine = new SpeechEngineMacOS();
             } else
             if (osNameForComparison.startsWith("linux")) {

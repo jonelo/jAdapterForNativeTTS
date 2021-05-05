@@ -28,8 +28,12 @@ public class ProcessHelper {
     }
 
     /**
-     * Starts an application in the background
+     * Starts an application in the background.
+     *
+     * @param executable the name of the executable
+     * @param args the arguments for the executable
      * @return returns the process reference
+     * @throws IOException in case of an I/O error
     */
     public static Process startApplication(String executable, String... args) throws IOException {
         final ProcessBuilder builder = getProcessBuilder(executable, args);
