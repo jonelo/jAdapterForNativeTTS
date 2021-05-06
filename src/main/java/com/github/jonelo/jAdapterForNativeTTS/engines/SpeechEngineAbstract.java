@@ -21,7 +21,7 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
         try {
             findAvailableVoices();
         } catch (Exception e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         this.voice = null;
     }
@@ -46,6 +46,18 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
             }
         }
         availableVoices = voices;
+    }
+
+    /**
+     * Find a Voice instance by providing voice preferences.
+     * @param voicePreferences the preferences for a voice
+     * @return an instance of the voice that matches the voicePreferences
+     */
+    public Voice findVoiceByPreferences(VoicePreferences voicePreferences) {
+        for (Voice voice : availableVoices) {
+            if (voice.matches(voicePreferences)) return voice;
+        }
+        return null;
     }
 
     public void say(String text) throws IOException {

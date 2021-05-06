@@ -20,6 +20,8 @@ public interface SpeechEngine {
 
     List<Voice> getAvailableVoices();
 
+    Voice findVoiceByPreferences(VoicePreferences voicePreferences);
+
     // action
     void setVoice(String voice);
 
