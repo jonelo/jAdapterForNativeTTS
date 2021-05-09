@@ -2,8 +2,6 @@ package com.github.jonelo.jAdapterForNativeTTS.engines;
 
 public class VoicePreferences {
 
-    public final static String UNDEFINED = "undefined";
-
     public enum Gender {
         FEMALE, MALE
     }
