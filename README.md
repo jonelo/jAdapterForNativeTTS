@@ -100,7 +100,7 @@ name='Microsoft Hazel', culture='en-GB', gender='Female', age='Adult', descripti
 ### Windows
 
 see also https://support.microsoft.com/en-us/topic/how-to-download-text-to-speech-languages-for-windows-10-d5a6b612-b3ae-423f-afa5-4f6caf1ec5d3
-and  https://stackoverflow.com/questions/55695930/listing-and-selecting-installed-voice-for-text-to-speech
+and https://github.com/jonelo/unlock-win-tts-voices
 
 ### macOS
 see also https://support.apple.com/de-de/guide/mac-help/mchlp2290/mac
