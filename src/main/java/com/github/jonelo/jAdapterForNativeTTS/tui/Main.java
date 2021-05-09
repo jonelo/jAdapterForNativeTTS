@@ -50,8 +50,7 @@ public class Main {
         String gender = scanner.nextLine();
         if (gender.equalsIgnoreCase("female")) {
             voicePreferences.setGender(VoicePreferences.Gender.FEMALE);
-        } else
-        if (gender.equalsIgnoreCase("male")) {
+        } else if (gender.equalsIgnoreCase("male")) {
             voicePreferences.setGender(VoicePreferences.Gender.MALE);
         }
 
@@ -67,9 +66,9 @@ public class Main {
      *
      * @param speechEngine an instance of a SpeechEngine
      * @return the name of the selected voice
-     * @throws IOException in case of an I/O error
+     * @throws IOException          in case of an I/O error
      * @throws InterruptedException in case of an interrupt
-     * @throws ParseException in case of an parse error
+     * @throws ParseException       in case of an parse error
      */
     private Voice selectVoice(SpeechEngine speechEngine) throws InterruptedException, ParseException, IOException {
 
@@ -79,7 +78,7 @@ public class Main {
         int id;
         // select a voice
         do {
-            System.out.printf("Enter the voice id (1-%d) or hit enter to specify voice preferences: ", voices.size()-1);
+            System.out.printf("Enter the voice id (1-%d) or hit enter to specify voice preferences: ", voices.size() - 1);
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (input.length() == 0) {
@@ -123,9 +122,10 @@ public class Main {
             SpeechEngine speechEngine = SpeechEngineNative.getInstance();
             Voice voice = selectVoice(speechEngine);
             speechEngine.setVoice(voice.getName());
+            System.out.printf("Playing the following text: \"%s\"\n", text);
             speechEngine.say(text);
-            //Thread.sleep(1000);
-            //speechEngine.stopTalking();
+            // Thread.sleep(1000);
+            // speechEngine.stopTalking();
         } catch (NotSupportedOperatingSystemException | IOException | InterruptedException | ParseException ex) {
             System.err.printf("Error: %s%n", ex.getMessage());
         }
