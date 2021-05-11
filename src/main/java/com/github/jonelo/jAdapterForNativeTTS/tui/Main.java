@@ -30,6 +30,18 @@ public class Main {
         }
     }
 
+    private int readRateFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Rate [-10..10]: ");
+        String rate = scanner.nextLine();
+        try {
+            return Integer.parseInt(rate);
+        } catch (NumberFormatException e) {
+            System.err.println(e.getMessage());
+            return 0;
+        }
+    }
+
     private VoicePreferences readVoicePreferences() {
         Scanner scanner = new Scanner(System.in);
         VoicePreferences voicePreferences = new VoicePreferences();
@@ -122,11 +134,12 @@ public class Main {
             SpeechEngine speechEngine = SpeechEngineNative.getInstance();
             Voice voice = selectVoice(speechEngine);
             speechEngine.setVoice(voice.getName());
+            speechEngine.setRate(readRateFromUser());
             System.out.printf("Playing the following text: \"%s\"\n", text);
             speechEngine.say(text);
             // Thread.sleep(1000);
             // speechEngine.stopTalking();
-        } catch (NotSupportedOperatingSystemException | IOException | InterruptedException | ParseException ex) {
+        } catch (NotSupportedOperatingSystemException | IOException | InterruptedException | ParseException | IllegalArgumentException ex) {
             System.err.printf("Error: %s%n", ex.getMessage());
         }
     }

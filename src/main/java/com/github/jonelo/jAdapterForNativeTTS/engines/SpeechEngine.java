@@ -22,7 +22,9 @@ public interface SpeechEngine {
 
     Voice findVoiceByPreferences(VoicePreferences voicePreferences);
 
-    // action
+    void setRate(int rate) throws IllegalArgumentException;
+
+    // actions
     void setVoice(String voice);
 
     void say(String text) throws IOException;

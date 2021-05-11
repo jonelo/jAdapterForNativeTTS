@@ -12,6 +12,7 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
     protected String voice;
     protected Process process;
     protected List<Voice> availableVoices;
+    protected int rate;
 
     public void setVoice(String voice) {
         this.voice = voice;
@@ -24,6 +25,7 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
             System.err.println(e.getMessage());
         }
         this.voice = null;
+        rate = 0; // normal voice speed
     }
 
 
@@ -75,5 +77,16 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
             process.destroy();
         }
     }
+
+    /**
+     * Sets the rate at which the words should be spoken.
+     * @param rate Valid range is [-10..10]. -10 is to slow the voice to a maximum, and 10 is to speed up the voice to a maximum.
+     * @throws IllegalArgumentException is thrown if rate is out of range
+     */
+    public void setRate(int rate) throws IllegalArgumentException {
+        if (rate < -10 || rate > 10) throw new IllegalArgumentException("Invalid range for rate, valid range is [-10..10]");
+        this.rate = rate;
+    }
+
 
 }

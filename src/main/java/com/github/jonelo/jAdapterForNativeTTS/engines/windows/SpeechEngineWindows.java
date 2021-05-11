@@ -12,12 +12,14 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
     private final static String
             QUOTE = "\"",
             CODE_TOKEN_TTS_NAME = "##TTS_NAME##",
+            CODE_TOKEN_RATE = "##RATE##",
             CODE_TOKEN_TEXT = "##TEXT##",
             POWER_SHELL_CODE_SAY =
                     String.join("",
                             "Add-Type -AssemblyName System.Speech;",
                             "$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer;",
                             "$speak.SelectVoice('", CODE_TOKEN_TTS_NAME, "');",
+                            "$speak.Rate=", CODE_TOKEN_RATE,";",
                             "$speak.Speak('", CODE_TOKEN_TEXT, "');"),
 
     POWER_SHELL_CODE_SUPPORTED_VOICES =
@@ -39,6 +41,7 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
         String escapedText = text.replaceAll("'", "''''");
         String code = POWER_SHELL_CODE_SAY
                 .replaceAll(CODE_TOKEN_TTS_NAME, voice)
+                .replaceAll(CODE_TOKEN_RATE, Integer.toString(rate))
                 .replaceAll(CODE_TOKEN_TEXT, escapedText);
         //System.out.println(code);
 
