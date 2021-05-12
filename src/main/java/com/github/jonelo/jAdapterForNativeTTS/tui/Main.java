@@ -56,7 +56,7 @@ public class Main {
 
     private int readRateFromUser() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Rate [-10..10]: ");
+        System.out.print("Rate [-100..100]: ");
         String rate = scanner.nextLine();
         try {
             return Integer.parseInt(rate);

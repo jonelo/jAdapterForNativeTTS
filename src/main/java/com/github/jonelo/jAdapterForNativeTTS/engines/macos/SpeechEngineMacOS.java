@@ -32,7 +32,10 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
 
     // macOS' say doesn't tell us the gender, so we have to find it out by ourselves
     private final static String maleNames =
-            "Alex,Daniel,Diego,Fred,Jorge,Juan,Luca,Maged,Markus,Thomas,Tom,Xander,Yannick,Yuri";
+            "Alex,Bruce,Carlos,Cem,Daniel,Diego,Felipe,Fred,Henrik,Jorge,Juan,Junior,Juri,Lee,Luca,Maged,Magnus,Markus,Neel,Nicolas,Nicos,Oliver,Oskar,Otoya,Ralph,Tarik,Thomas,Tom,Xander,Yannick,Yuri";
+
+    private final static String femaleNames =
+            "Alva,Agnes,Alice,Allison,Andrea,Angelica,Anna,Amelie,Aurelie,Ava,Catarina,Carmit,Chantal,Claire,Damayanti,Ellen,Ewa,Fiona,Frederica,Ioana,Iveta,Joana,Kanya,Karen,Kate,Kathy,Katja,Klara,Kyoko,Laila,Laura,Lekha,Luciana,Mariska,Milena,Mei-Jia,Melina,Moira,Monica,Nora,Paola,Paulina,Petra,Princess,Samantha,Sara,Satu,Serena,Sin-ji,Soledad,Susan,Tessa,Ting-Ting,Veena,Vicki,Victoria,Yelda,Yuna,Zosia,Zuzana";
 
     public String getSayExecutable() {
         return "say";
@@ -65,7 +68,8 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
     }
 
     private String getGender(String name) {
+        if (femaleNames.contains(name)) return "female";
         if (maleNames.contains(name)) return "male";
-        return "female";
+        return "?";
     }
 }
