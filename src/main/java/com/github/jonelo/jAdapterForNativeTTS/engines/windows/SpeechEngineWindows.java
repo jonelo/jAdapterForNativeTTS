@@ -58,11 +58,15 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
         return "PowerShell";
     }
 
+    private int recalcRate(int rate) {
+        return (int)Math.round(rate/10.0);
+    }
+
     public String[] getSayOptionsToSayText(String text) {
         String escapedText = text.replaceAll("'", "''''");
         String code = POWER_SHELL_CODE_SAY
                 .replaceAll(CODE_TOKEN_TTS_NAME, voice)
-                .replaceAll(CODE_TOKEN_RATE, Integer.toString(rate))
+                .replaceAll(CODE_TOKEN_RATE, Integer.toString(recalcRate(rate)))
                 .replaceAll(CODE_TOKEN_TEXT, escapedText);
         //System.out.println(code);
 
