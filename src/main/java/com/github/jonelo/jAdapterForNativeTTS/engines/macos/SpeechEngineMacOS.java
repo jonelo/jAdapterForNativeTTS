@@ -45,13 +45,22 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
         return new String[]{"-v", "?"};
     }
 
+    private String formatRate() {
+        // we do not need specify the rate if rate has been set to zero.
+        if (rate==0) return "";
+        // We have a rage of [-100..100] which needs to be mapped to [50..310],
+        // This is (310-50)/200=1,3 for each step, and the mid (default rate) is 180
+        // which leads to the formula mappedRate=rate*1,3+180
+        return String.format("[[rate %s]]", (int) Math.round(rate * 1.3 + 180));
+    }
+
     public String[] getSayOptionsToSayText(String text) {
-        return new String[]{"-v", voice, text};
+        return new String[]{"-v", voice, formatRate()+text};
     }
 
     public Voice parse(String line) throws ParseException {
         String[] tokensAll = line.split("#");
-        String[] tokens = tokensAll[0].split(" +");
+        String[] tokens = tokensAll[0].split(" {2,}");
 
         if (tokens.length != 2) {
             throw new ParseException("This is an unexpected line: " + line);
