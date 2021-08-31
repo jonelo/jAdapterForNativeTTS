@@ -17,7 +17,7 @@ Microsoft Windows, GNU/Linux, and macOS are supported.
 In your Java code, simply obtain a speechEngine object (actually you don't have to care about what OS you are using),
 set the voice of your choice either directly or by providing voice preferences and let the engine say some words. This is a short code snippet in order to demonstrate some of the API features:
 
-```
+```java
     String text = "The answer to the ultimate question of life, the universe, and everything is 42";
     try {
         SpeechEngine speechEngine = SpeechEngineNative.getInstance();
