@@ -22,12 +22,12 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.engines;
+package io.github.jonelo.jAdapterForNativeTTS.engines;
 
-import com.github.jonelo.jAdapterForNativeTTS.engines.linux.SpeechEngineLinux;
-import com.github.jonelo.jAdapterForNativeTTS.engines.macos.SpeechEngineMacOS;
-import com.github.jonelo.jAdapterForNativeTTS.engines.windows.SpeechEngineWindows;
-import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotSupportedOperatingSystemException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.linux.SpeechEngineLinux;
+import io.github.jonelo.jAdapterForNativeTTS.engines.macos.SpeechEngineMacOS;
+import io.github.jonelo.jAdapterForNativeTTS.engines.windows.SpeechEngineWindows;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotSupportedOperatingSystemException;
 
 import java.util.Locale;
 

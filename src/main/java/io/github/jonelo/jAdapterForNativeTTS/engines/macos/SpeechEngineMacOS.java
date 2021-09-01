@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.engines.macos;
+package io.github.jonelo.jAdapterForNativeTTS.engines.macos;
 
-import com.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
-import com.github.jonelo.jAdapterForNativeTTS.engines.Voice;
-import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
+import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 
 public class SpeechEngineMacOS extends SpeechEngineAbstract {
 

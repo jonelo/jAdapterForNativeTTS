@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.engines;
+package io.github.jonelo.jAdapterForNativeTTS.engines;
 
 import java.util.Locale;
 

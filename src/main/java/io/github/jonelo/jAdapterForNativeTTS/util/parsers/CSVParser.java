@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.util.parsers;
+package io.github.jonelo.jAdapterForNativeTTS.util.parsers;
 
 import java.util.ArrayList;
 import java.util.List;

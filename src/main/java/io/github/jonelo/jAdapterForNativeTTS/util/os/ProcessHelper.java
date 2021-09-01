@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.util.os;
+package io.github.jonelo.jAdapterForNativeTTS.util.os;
 
 import java.io.BufferedReader;
 import java.io.IOException;

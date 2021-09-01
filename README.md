@@ -56,7 +56,7 @@ set the voice of your choice either directly or by providing voice preferences a
 Please stay tuned for Maven.
 
 ### CLI with TUI
-For demonstration purposes, you can also call the Text User Interface (see also com.github.jonelo.jAdapterForNativeTTS.tui.Main.java):
+For demonstration purposes, you can also call the Text User Interface (see also Main.java):
 
 ```
 java -jar jAdapterForNativeTTS.jar "The answer to the ultimate question of life, the universe, and everything is 42"

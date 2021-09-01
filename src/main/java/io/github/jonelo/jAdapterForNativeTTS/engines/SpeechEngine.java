@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.engines;
+package io.github.jonelo.jAdapterForNativeTTS.engines;
 
-import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 
 import java.io.IOException;
 import java.util.List;

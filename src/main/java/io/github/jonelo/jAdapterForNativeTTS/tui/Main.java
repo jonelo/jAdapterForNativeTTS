@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.tui;
+package io.github.jonelo.jAdapterForNativeTTS.tui;
 
-import com.github.jonelo.jAdapterForNativeTTS.engines.*;
-import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotSupportedOperatingSystemException;
-import com.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.*;
+import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotSupportedOperatingSystemException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngine;
+import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineNative;
+import io.github.jonelo.jAdapterForNativeTTS.engines.VoicePreferences;
 
 import java.io.IOException;
 import java.util.List;

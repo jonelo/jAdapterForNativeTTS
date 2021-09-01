@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-package com.github.jonelo.jAdapterForNativeTTS.engines.exceptions;
+package io.github.jonelo.jAdapterForNativeTTS.engines.exceptions;
 
-public class ParseException extends Exception {
+public class NotSupportedOperatingSystemException extends Exception {
 
-        public ParseException(String string) {
+        public NotSupportedOperatingSystemException(String string) {
             super(string);
         }
 }
