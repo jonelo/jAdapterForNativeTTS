@@ -15,7 +15,7 @@ Microsoft Windows, GNU/Linux, and macOS are supported.
 ## How to use it
 ### Code Example
 In your Java code, simply obtain a speechEngine object (actually you don't have to care about what OS you are using),
-set the voice of your choice either directly or by providing voice preferences and let the engine say some words. This is a short code snippet in order to demonstrate some of the API features:
+set the voice of your choice either directly or by providing voice preferences and let the engine say some words. This is a short code snippet in order to demonstrate some API features:
 
 ```java
     String text = "The answer to the ultimate question of life, the universe, and everything is 42";
@@ -59,7 +59,7 @@ Please stay tuned for Maven.
 For demonstration purposes, you can also call the Text User Interface (see also Main.java):
 
 ```
-java -jar jAdapterForNativeTTS.jar "The answer to the ultimate question of life, the universe, and everything is 42"
+java -jar jadapter-for-native-tts-*.jar "The answer to the ultimate question of life, the universe, and everything is 42"
 0: name='Microsoft Hedda Desktop', culture='de-DE', gender='Female', age='Adult', description='Microsoft Hedda Desktop (de_DE, Female)'
 1: name='Microsoft Hedda', culture='de-DE', gender='Female', age='Adult', description='Microsoft Hedda (de_DE, Female)'
 2: name='Microsoft Katja', culture='de-DE', gender='Female', age='Adult', description='Microsoft Katja (de_DE, Female)'
