@@ -53,7 +53,7 @@ set the voice of your choice either directly or by providing voice preferences a
 ```
 ### Maven
 
-Please stay tuned for Maven.
+Please stay tuned for an artifact on Maven Central.
 
 ### CLI with TUI
 For demonstration purposes, you can also call the Text User Interface (see also Main.java):
