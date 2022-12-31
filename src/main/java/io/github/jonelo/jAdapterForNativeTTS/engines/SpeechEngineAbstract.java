@@ -86,10 +86,12 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
         return null;
     }
 
-    public void say(String text) throws IOException {
+    public Process say(String text) throws IOException {
         if (voice != null) {
             process = ProcessHelper.startApplication(getSayExecutable(), getSayOptionsToSayText(text));
+            return process;
         }
+        return null;
     }
 
     /**
@@ -99,6 +101,7 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
     public void stopTalking() {
         if (process != null) {
             process.destroy();
+            process = null;
         }
     }
 
