@@ -24,6 +24,7 @@
 
 package io.github.jonelo.jAdapterForNativeTTS.engines;
 
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotEvenOneVoiceAvailableException;
 import io.github.jonelo.jAdapterForNativeTTS.engines.linux.SpeechEngineLinux;
 import io.github.jonelo.jAdapterForNativeTTS.engines.macos.SpeechEngineMacOS;
 import io.github.jonelo.jAdapterForNativeTTS.engines.windows.SpeechEngineWindows;
@@ -38,7 +39,7 @@ public class SpeechEngineNative {
 
     private static SpeechEngine engine = null;
 
-    public static SpeechEngine getInstance() throws NotSupportedOperatingSystemException {
+    public static SpeechEngine getInstance() throws NotSupportedOperatingSystemException, NotEvenOneVoiceAvailableException {
         if (engine == null) {
             String osName = System.getProperty("os.name");
             String osNameForComparison = osName.replaceAll("\\s", "").toLowerCase(Locale.US);
@@ -57,6 +58,9 @@ public class SpeechEngineNative {
                 engine = new SpeechEngineLinux();
             } else {
                 throw new NotSupportedOperatingSystemException(String.format("Operating System '%s' is not supported.", osName));
+            }
+            if (engine.getAvailableVoices().size() == 0) {
+                throw new NotEvenOneVoiceAvailableException("Not even one voice has been found.");
             }
         }
 

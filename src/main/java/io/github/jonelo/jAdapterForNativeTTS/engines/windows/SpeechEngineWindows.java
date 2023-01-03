@@ -87,7 +87,7 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
 
         //List<String> tokens = CSVParser.parseLine(csvLine);
         if (tokens.length != 5) {
-            throw new ParseException("This is not a valid csv line: " + csvLine);
+            throw new ParseException("This is an invalid csv line: " + csvLine);
         }
 
         Voice voice = new Voice();

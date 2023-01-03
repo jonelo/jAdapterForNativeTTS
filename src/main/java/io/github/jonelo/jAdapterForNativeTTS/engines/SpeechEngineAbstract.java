@@ -24,6 +24,7 @@
 
 package io.github.jonelo.jAdapterForNativeTTS.engines;
 
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotEvenOneVoiceAvailableException;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 import io.github.jonelo.jAdapterForNativeTTS.util.os.ProcessHelper;
 
@@ -62,18 +63,30 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
         return availableVoices;
     }
 
-    public void findAvailableVoices() throws IOException, InterruptedException, ParseException {
+    public void findAvailableVoices() throws IOException, InterruptedException, NotEvenOneVoiceAvailableException, ParseException {
         ArrayList<String> list = ProcessHelper.startApplicationAndGetOutput(getSayExecutable(), getSayOptionsToGetSupportedVoices());
         ArrayList<Voice> voices = new ArrayList<>();
+        int parsedLines = 0;
+        int parseErrors = 0;
         for (String line : list) {
             try {
+                parsedLines++;
                 Voice v = parse(line);
                 if (v != null) {
                     voices.add(v);
                 }
-            } catch (ParseException e) { e.printStackTrace() }
+            } catch (ParseException e) {
+                parseErrors++;
+                e.printStackTrace();
+            }
         }
         availableVoices = voices;
+        if (availableVoices.size() == 0) {
+            throw new NotEvenOneVoiceAvailableException(String.format("Not even one voice has been found. There were %s parse errors.%n", parseErrors));
+        }
+        if (parseErrors > 0) {
+            throw new ParseException(String.format("%s voices have been found, but there were %s parse errors.%n", availableVoices.size(), parseErrors));
+        }
     }
 
     /**

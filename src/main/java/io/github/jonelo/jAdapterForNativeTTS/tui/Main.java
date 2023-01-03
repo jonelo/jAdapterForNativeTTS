@@ -28,6 +28,7 @@ import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngine;
 import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineNative;
 import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
 import io.github.jonelo.jAdapterForNativeTTS.engines.VoicePreferences;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotEvenOneVoiceAvailableException;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotSupportedOperatingSystemException;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 
@@ -61,6 +62,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Rate [-100..100]: ");
         String rate = scanner.nextLine();
+        if (rate.strip().equals("")) {
+            return 0;
+        }
         try {
             return Integer.parseInt(rate);
         } catch (NumberFormatException e) {
@@ -166,7 +170,8 @@ public class Main {
             speechEngine.say(text);
             // Thread.sleep(1000);
             // speechEngine.stopTalking();
-        } catch (NotSupportedOperatingSystemException | IOException | InterruptedException | ParseException | IllegalArgumentException ex) {
+        } catch (NotSupportedOperatingSystemException | NotEvenOneVoiceAvailableException |
+                 IOException | InterruptedException | ParseException | IllegalArgumentException ex) {
             System.err.printf("Error: %s%n", ex.getMessage());
         }
     }

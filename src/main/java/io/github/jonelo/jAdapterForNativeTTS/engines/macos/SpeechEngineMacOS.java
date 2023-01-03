@@ -97,7 +97,7 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
             voice.setDescription(String.format("%s (%s, %s)", name, culture, gender));
             return voice;
         } else {
-            throw new ParseException("This is an unexpected line: " + line);
+            throw new ParseException(String.format("This is an unexpected line from %s: %s%n", getSayExecutable(), line));
         }
     }
 

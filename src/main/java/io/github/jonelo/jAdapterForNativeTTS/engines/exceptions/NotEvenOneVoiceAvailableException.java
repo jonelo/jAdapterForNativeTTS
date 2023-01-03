@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 Johann N. Löfflmann
+ * Copyright (c) 2023 Johann N. Löfflmann
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,38 +22,10 @@
  * SOFTWARE.
  */
 
-package io.github.jonelo.jAdapterForNativeTTS.engines;
+package io.github.jonelo.jAdapterForNativeTTS.engines.exceptions;
 
-import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotEvenOneVoiceAvailableException;
-import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
-
-import java.io.IOException;
-import java.util.List;
-
-public interface SpeechEngine {
-
-    // config
-    String getSayExecutable();
-
-    String[] getSayOptionsToSayText(String text);
-
-    String[] getSayOptionsToGetSupportedVoices();
-
-    Voice parse(String line) throws ParseException;
-
-    void findAvailableVoices() throws IOException, InterruptedException, ParseException, NotEvenOneVoiceAvailableException;
-
-    List<Voice> getAvailableVoices();
-
-    Voice findVoiceByPreferences(VoicePreferences voicePreferences);
-
-    void setRate(int rate) throws IllegalArgumentException;
-
-    // actions
-    void setVoice(String voice);
-
-    void say(String text) throws IOException;
-
-    void stopTalking();
-
+public class NotEvenOneVoiceAvailableException extends Exception {
+    public NotEvenOneVoiceAvailableException(String string) {
+            super(string);
+    }
 }

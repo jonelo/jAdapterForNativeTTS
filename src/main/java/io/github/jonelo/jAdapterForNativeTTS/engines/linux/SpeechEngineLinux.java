@@ -48,7 +48,7 @@ public class SpeechEngineLinux extends SpeechEngineAbstract {
         String[] tokens = line.trim().split("  +");
 
         if (tokens.length != 3) {
-            throw new ParseException("This is an unexpected line: " + line);
+            throw new ParseException(String.format("This is an unexpected line from %s: %s%n", getSayExecutable(), line));
         }
 
         // we don't want the header of the output
