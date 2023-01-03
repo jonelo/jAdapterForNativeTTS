@@ -7,9 +7,9 @@ Microsoft Windows, GNU/Linux, and macOS are supported.
 
 ## What are the system requirements
 * Java 11 or later
-* Powershell on Windows 10
+* PowerShell on Microsoft Windows 10, or 11
 * spd-say on GNU/Linux
-* say on macOS
+* say on macOS 10.13, 10.14, 10.15, 11, 12, or 13
 * installed voices (see also "How to add more voices")
 
 ## How to use it
