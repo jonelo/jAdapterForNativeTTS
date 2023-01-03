@@ -52,7 +52,7 @@ public interface SpeechEngine {
     // actions
     void setVoice(String voice);
 
-    void say(String text) throws IOException;
+    Process say(String text) throws IOException;
 
     void stopTalking();
 
