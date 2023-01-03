@@ -62,7 +62,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Rate [-100..100]: ");
         String rate = scanner.nextLine();
-        if (rate.strip().equals("")) {
+        if (rate.strip().length() == 0) {
             return 0;
         }
         try {
