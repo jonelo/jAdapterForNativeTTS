@@ -66,10 +66,12 @@ public abstract class SpeechEngineAbstract implements SpeechEngine {
         ArrayList<String> list = ProcessHelper.startApplicationAndGetOutput(getSayExecutable(), getSayOptionsToGetSupportedVoices());
         ArrayList<Voice> voices = new ArrayList<>();
         for (String line : list) {
-            Voice v = parse(line);
-            if (v != null) {
-                voices.add(v);
-            }
+            try {
+                Voice v = parse(line);
+                if (v != null) {
+                    voices.add(v);
+                }
+            } catch (ParseException e) { e.printStackTrace() }
         }
         availableVoices = voices;
     }
