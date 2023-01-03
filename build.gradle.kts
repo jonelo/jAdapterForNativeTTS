@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.jonelo"
-version = "0.9.9"
+version = "0.11.0"
 
 repositories {
   mavenCentral()

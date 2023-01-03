@@ -59,7 +59,7 @@ Please stay tuned for an artifact on Maven Central.
 For demonstration purposes, you can also call the Text User Interface (see also Main.java):
 
 ```
-> java -jar jadapter-for-native-tts-0.10.0.jar "The answer to the ultimate question of life, the universe, and everything is 42"
+> java -jar jadapter-for-native-tts-0.11.0.jar "The answer to the ultimate question of life, the universe, and everything is 42"
 0: name='Microsoft Hedda Desktop', culture='de-DE', gender='Female', age='Adult', description='Microsoft Hedda Desktop (de_DE, Female)'
 1: name='Microsoft Hedda', culture='de-DE', gender='Female', age='Adult', description='Microsoft Hedda (de_DE, Female)'
 2: name='Microsoft Katja', culture='de-DE', gender='Female', age='Adult', description='Microsoft Katja (de_DE, Female)'

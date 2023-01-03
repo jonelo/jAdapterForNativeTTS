@@ -6,7 +6,7 @@
 
     <groupId>io.github.jonelo</groupId>
     <artifactId>jadapter-for-native-tts</artifactId>
-    <version>0.10.0</version>
+    <version>0.11.0</version>
     <packaging>jar</packaging>
 
     <properties>

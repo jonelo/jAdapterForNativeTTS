@@ -28,14 +28,23 @@ import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
 import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SpeechEngineMacOS extends SpeechEngineAbstract {
 
     // macOS' say doesn't tell us the gender, so we have to find it out by ourselves
     private final static String maleNames =
-            "Alex,Bruce,Carlos,Cem,Daniel,Diego,Felipe,Fred,Henrik,Jorge,Juan,Junior,Juri,Lee,Luca,Maged,Magnus,Markus,Neel,Nicolas,Nicos,Oliver,Oskar,Otoya,Ralph,Tarik,Thomas,Tom,Xander,Yannick,Yuri";
+            // male names from say in macOS 13 that are not already in earlier releases
+            "Albert,Eddy,Grandpa,Jester,Jacques,Majed,Reed,Rishi,Rocko,Sinji," +
+            // male names from say in macOS 10.13, 10.14, 10.15, 11, and 12
+            "Alex,Bruce,Carlos,Cem,Daniel,Diego,Felipe,Fred,Henrik,Jorge,Juan,Junior,Juri,Lee,Luca,Maged,Magnus,Markus,Neel,Nicolas,Nicos,Oliver,Oskar,Otoya,Ralph,Tarik,Thomas,Tom,Xander,Yannick,Yuri,";
 
     private final static String femaleNames =
-            "Alva,Agnes,Alice,Allison,Andrea,Angelica,Anna,Amelie,Aurelie,Ava,Catarina,Carmit,Chantal,Claire,Damayanti,Ellen,Ewa,Fiona,Frederica,Ioana,Iveta,Joana,Kanya,Karen,Kate,Kathy,Katja,Klara,Kyoko,Laila,Laura,Lekha,Luciana,Mariska,Milena,Mei-Jia,Melina,Moira,Monica,Nora,Paola,Paulina,Petra,Princess,Samantha,Sara,Satu,Serena,Sin-ji,Soledad,Susan,Tessa,Ting-Ting,Veena,Vicki,Victoria,Yelda,Yuna,Zosia,Zuzana";
+            // female names from say in macOS 13 that are not already in earlier releases
+            "Amélie,Amira,Daria,Grandma,Lana,Lesya,Linh,Tünde,Meijia,Mónica,Montse,Sandy,Shelley,Tingting," +
+            // female names from say in macOS 10.13, 10.14, 10.15, 11, and 12
+            "Alva,Agnes,Alice,Allison,Andrea,Angelica,Anna,Amelie,Aurelie,Ava,Catarina,Carmit,Chantal,Claire,Damayanti,Ellen,Ewa,Fiona,Frederica,Ioana,Iveta,Joana,Kanya,Karen,Kate,Kathy,Katja,Klara,Kyoko,Laila,Laura,Lekha,Luciana,Mariska,Milena,Mei-Jia,Melina,Moira,Monica,Nora,Paola,Paulina,Petra,Princess,Samantha,Sara,Satu,Serena,Sin-ji,Soledad,Susan,Tessa,Ting-Ting,Veena,Vicki,Victoria,Yelda,Yuna,Zosia,Zuzana,";
 
     public String getSayExecutable() {
         return "say";
@@ -46,7 +55,7 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
     }
 
     private String formatRate() {
-        // we do not need specify the rate if rate has been set to zero.
+        // we do not need to specify the rate if rate has been set to zero.
         if (rate==0) return "";
         // We have a rage of [-100..100] which needs to be mapped to [50..310],
         // This is (310-50)/200=1,3 for each step, and the mid (default rate) is 180
@@ -59,26 +68,54 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
     }
 
     public Voice parse(String line) throws ParseException {
-        String[] tokensAll = line.split("#");
-        String[] tokens = tokensAll[0].split(" {2,}");
+        /*
+            Example lines:
+            > say -v "?" | grep it_IT
+            returns on macOS 10.13, 10.14, 10.15, 11, 12:
+            Alice               it_IT    # Salve, mi chiamo Alice e sono una voce italiana.
+            Luca                it_IT    # Salve, mi chiamo Luca e sono una voce italiana.
 
-        if (tokens.length != 2) {
+            but returns on macOS 13:
+            Alice (Enhanced)    it_IT    # Ciao! Mi chiamo Alice.
+            Alice               it_IT    # Salve, mi chiamo Alice e sono una voce italiana.
+            Eddy (Italian (Italy)) it_IT    # Ciao! Mi chiamo Eddy.
+            ...
+        */
+        Pattern pattern = Pattern.compile("^(.+?)\\s+([^ ]+)\\s+#.*$");
+        Matcher matcher = pattern.matcher(line);
+
+        if (matcher.find() && matcher.groupCount() == 2) {
+            String name = matcher.group(1);
+            String culture = matcher.group(2);
+
+            Voice voice = new Voice();
+            voice.setName(name);
+            voice.setCulture(culture);
+            String gender = getGender(stripBrackets(name));
+            voice.setGender(gender);
+            voice.setAge("?");
+            voice.setDescription(String.format("%s (%s, %s)", name, culture, gender));
+            return voice;
+        } else {
             throw new ParseException("This is an unexpected line: " + line);
         }
-
-        Voice voice = new Voice();
-        voice.setName(tokens[0]);
-        voice.setCulture(tokens[1]);
-        String gender = getGender(tokens[0]);
-        voice.setGender(gender);
-        voice.setAge("?");
-        voice.setDescription(String.format("%s (%s, %s)", tokens[0], tokens[1], gender));
-        return voice;
     }
 
-    private String getGender(String name) {
-        if (femaleNames.contains(name)) return "female";
-        if (maleNames.contains(name)) return "male";
+    // removes the brackets that is following the wanted string,
+    // e.g. "Eddy (Italian (Italy))" would become "Eddy"
+    private static String stripBrackets(String string) {
+        Pattern pattern = Pattern.compile("^([^(]+)\\s+\\(.*\\).*$");
+        Matcher matcher = pattern.matcher(string);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return string;
+    }
+
+    private static String getGender(String name) {
+        // appending a comma for the search in order to avoid false positives for Fred/Frederica for example.
+        if (femaleNames.contains(name + ",")) return "female";
+        if (maleNames.contains(name + ",")) return "male";
         return "?";
     }
 }

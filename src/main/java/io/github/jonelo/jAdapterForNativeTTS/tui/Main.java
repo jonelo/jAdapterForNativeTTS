@@ -45,7 +45,7 @@ public class Main {
      * Prints the usage to the standard output.
      */
     public static void usage() {
-        System.out.println("java -jar jadapter-for-native-tts-*.jar [word]...");
+        System.out.println("java -jar jadapter-for-native-tts-0.11.0.jar [word]...");
     }
 
 
