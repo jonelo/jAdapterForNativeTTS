@@ -24,8 +24,8 @@
 
 package io.github.jonelo.jAdapterForNativeTTS.engines.exceptions;
 
-public class NotEvenOneVoiceAvailableException extends Exception {
-    public NotEvenOneVoiceAvailableException(String string) {
-            super(string);
+public class SpeechEngineCreationException extends Exception {
+    public SpeechEngineCreationException(String string) {
+        super(string);
     }
 }

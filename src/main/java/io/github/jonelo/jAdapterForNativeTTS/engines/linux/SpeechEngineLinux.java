@@ -27,9 +27,13 @@ package io.github.jonelo.jAdapterForNativeTTS.engines.linux;
 import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
 import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.SpeechEngineCreationException;
 
 public class SpeechEngineLinux extends SpeechEngineAbstract {
 
+    public SpeechEngineLinux() throws SpeechEngineCreationException {
+        super();
+    }
 
     public String getSayExecutable() {
         return "spd-say";
@@ -48,7 +52,7 @@ public class SpeechEngineLinux extends SpeechEngineAbstract {
         String[] tokens = line.trim().split("  +");
 
         if (tokens.length != 3) {
-            throw new ParseException(String.format("This is an unexpected line from %s: %s%n", getSayExecutable(), line));
+            throw new ParseException(String.format("Unexpected line from %s: %s", getSayExecutable(), line));
         }
 
         // we don't want the header of the output

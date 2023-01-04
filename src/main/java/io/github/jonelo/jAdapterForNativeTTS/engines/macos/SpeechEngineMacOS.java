@@ -27,6 +27,7 @@ package io.github.jonelo.jAdapterForNativeTTS.engines.macos;
 import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
 import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.SpeechEngineCreationException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,6 +46,10 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
             "Amélie,Amira,Daria,Grandma,Lana,Lesya,Linh,Tünde,Meijia,Mónica,Montse,Sandy,Shelley,Tingting," +
             // female names from say in macOS 10.13, 10.14, 10.15, 11, and 12
             "Alva,Agnes,Alice,Allison,Andrea,Angelica,Anna,Amelie,Aurelie,Ava,Catarina,Carmit,Chantal,Claire,Damayanti,Ellen,Ewa,Fiona,Frederica,Ioana,Iveta,Joana,Kanya,Karen,Kate,Kathy,Katja,Klara,Kyoko,Laila,Laura,Lekha,Luciana,Mariska,Milena,Mei-Jia,Melina,Moira,Monica,Nora,Paola,Paulina,Petra,Princess,Samantha,Sara,Satu,Serena,Sin-ji,Soledad,Susan,Tessa,Ting-Ting,Veena,Vicki,Victoria,Yelda,Yuna,Zosia,Zuzana,";
+
+    public SpeechEngineMacOS() throws SpeechEngineCreationException {
+        super();
+    }
 
     public String getSayExecutable() {
         return "say";
@@ -97,7 +102,7 @@ public class SpeechEngineMacOS extends SpeechEngineAbstract {
             voice.setDescription(String.format("%s (%s, %s)", name, culture, gender));
             return voice;
         } else {
-            throw new ParseException(String.format("This is an unexpected line from %s: %s%n", getSayExecutable(), line));
+            throw new ParseException(String.format("Unexpected line from %s: %s", getSayExecutable(), line));
         }
     }
 

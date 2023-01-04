@@ -27,6 +27,7 @@ package io.github.jonelo.jAdapterForNativeTTS.engines.windows;
 import io.github.jonelo.jAdapterForNativeTTS.engines.SpeechEngineAbstract;
 import io.github.jonelo.jAdapterForNativeTTS.engines.Voice;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
+import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.SpeechEngineCreationException;
 
 public class SpeechEngineWindows extends SpeechEngineAbstract {
 
@@ -53,6 +54,9 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
                     "ConvertTo-Csv -NoTypeInformation | ",
                     "Select-Object -Skip 1;");
 
+    public SpeechEngineWindows() throws SpeechEngineCreationException {
+        super();
+    }
 
     public String getSayExecutable() {
         return "PowerShell";
@@ -73,7 +77,6 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
         return new String[]{"-Command", String.join("", QUOTE, code, QUOTE)};
     }
 
-
     public String[] getSayOptionsToGetSupportedVoices() {
         return new String[]{"-Command", String.join("", QUOTE, POWER_SHELL_CODE_SUPPORTED_VOICES, QUOTE)};
     }
@@ -87,7 +90,7 @@ public class SpeechEngineWindows extends SpeechEngineAbstract {
 
         //List<String> tokens = CSVParser.parseLine(csvLine);
         if (tokens.length != 5) {
-            throw new ParseException("This is an invalid csv line: " + csvLine);
+            throw new ParseException(String.format("Invalid csv line: %s", csvLine));
         }
 
         Voice voice = new Voice();

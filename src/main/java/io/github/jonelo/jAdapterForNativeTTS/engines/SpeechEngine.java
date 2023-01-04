@@ -24,7 +24,6 @@
 
 package io.github.jonelo.jAdapterForNativeTTS.engines;
 
-import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.NotEvenOneVoiceAvailableException;
 import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.ParseException;
 
 import java.io.IOException;
@@ -41,9 +40,11 @@ public interface SpeechEngine {
 
     Voice parse(String line) throws ParseException;
 
-    void findAvailableVoices() throws IOException, InterruptedException, ParseException, NotEvenOneVoiceAvailableException;
+    void findAvailableVoices() throws IOException, InterruptedException;
 
     List<Voice> getAvailableVoices();
+
+    List<ParseException> getParseExceptions();
 
     Voice findVoiceByPreferences(VoicePreferences voicePreferences);
 
